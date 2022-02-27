@@ -3,6 +3,10 @@ uuid = "4447db07-3941-47e2-90a2-965b7cb1b6ce"
 authors = ["Bernard Brenyah"]
 version = "0.1.0"
 
+[deps]
+BinDeps = "9e28174c-4ba2-5203-b857-d8d62c4213ee"
+UrlDownload = "856ac37a-3032-4c1c-9122-f86d88358c8b"
+
 [compat]
 julia = "1.6"
 
