@@ -5,7 +5,7 @@ version = "0.1.0"
 
 [deps]
 BinDeps = "9e28174c-4ba2-5203-b857-d8d62c4213ee"
-UrlDownload = "856ac37a-3032-4c1c-9122-f86d88358c8b"
+Libdl = "8f399da3-3557-5675-b5ff-fb832c97cbdb"
 
 [compat]
 julia = "1.6"
