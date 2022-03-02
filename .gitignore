@@ -12,3 +12,4 @@
 .benchmarkci/
 .idea/*
 .vscode/*
+deps/deps.jl
