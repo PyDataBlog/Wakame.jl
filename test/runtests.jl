@@ -1,6 +1,6 @@
 module TestWakame
 
-import Pkg
+using Pkg
 using Wakame
 using Test
 
