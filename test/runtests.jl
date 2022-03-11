@@ -1,12 +1,16 @@
 module TestWakame
 
-
+import Pkg
 using Wakame
 using Test
+
+Pkg.build("Wakame")
 
 
 # assume using ipadic
 mecab = Mecab()
+
+
 
 @testset "mecab" begin
     results = Wakame.parse(mecab, "今日の天気は晴れです")
