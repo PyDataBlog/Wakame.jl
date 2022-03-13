@@ -1,10 +1,7 @@
 module TestWakame
 
-using Pkg
 using Wakame
 using Test
-
-# Pkg.build("Wakame")
 
 
 # assume using ipadic
@@ -13,7 +10,7 @@ mecab = Mecab()
 
 
 @testset "mecab" begin
-    results = Wakame.parse(mecab, "今日の天気は晴れです")
+    results = parse(mecab, "今日の天気は晴れです")
     @test length(results) == 6
     @test isa(results[1], MecabNode)
     @test results[1].surface == "今日"
