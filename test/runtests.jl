@@ -4,7 +4,7 @@ using Pkg
 using Wakame
 using Test
 
-Pkg.build("Wakame")
+# Pkg.build("Wakame")
 
 
 # assume using ipadic
