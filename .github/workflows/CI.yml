@@ -31,6 +31,11 @@ jobs:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
       - uses: julia-actions/cache@v1
+      - name: Install Mecab (MacOS)
+        if: runner.os == 'macOS'
+        run: |
+          brew install mecab
+          brew install mecab-ipadic
       - uses: julia-actions/julia-buildpkg@v1
       - uses: julia-actions/julia-runtest@v1
       - uses: julia-actions/julia-processcoverage@v1
