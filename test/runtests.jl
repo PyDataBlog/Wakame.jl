@@ -54,6 +54,7 @@ end
 
 
 function test_mecab()
+    mecab = Mecab()
     # Test parsing
     results = parse(mecab, "すももももももももものうち")
     @test length(results) == 10
