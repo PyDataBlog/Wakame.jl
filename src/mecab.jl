@@ -32,6 +32,16 @@ mutable struct Mecab
 
         smart_p
     end
+
+    function parse_file(self::Mecab, filename::String)
+        # Open file and read contents
+        f = open(filename)
+        contents = read(f, String)
+        close(f)
+
+        # Parse contents and return results
+        return parse(self, contents)
+    end
 end
 
 
