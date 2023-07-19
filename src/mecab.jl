@@ -175,7 +175,6 @@ end
 
 function parse_surface(mecab::Mecab, input::String)
     results = [split(line, "\t")[1] for line = split(sparse_tostr(mecab, input), "\n")]
-    # If you don't need EOS, you can remove following
     if isempty(results)
         return []
     end

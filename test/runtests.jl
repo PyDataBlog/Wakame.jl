@@ -51,7 +51,4 @@ mecab = Mecab()
 
 end
 
-
-
-
 end
