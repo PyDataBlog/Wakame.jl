@@ -10,17 +10,7 @@ end
 @assert @isdefined libmecab
 
 
-"""
-    Mecab
 
-A mutable struct representing a MeCab tagger. It is created by calling the `Mecab()` constructor.
-
-# Examples
-```julia
-tagger = Mecab()
-results = parse(mecab, "すももももももももものうち")
-```
-"""
 mutable struct Mecab
     ptr::Ptr{Nothing}
 
@@ -45,9 +35,6 @@ mutable struct Mecab
 end
 
 
-"""
-    A mutable struct representing a raw node in MeCab used to create a `MecabNode`
-"""
 mutable struct MecabRawNode
     prev::Ptr{MecabRawNode}
     next::Ptr{MecabRawNode}
@@ -74,18 +61,13 @@ mutable struct MecabRawNode
 end
 
 
-"""
-    A mutable struct representing a MeCab node.
-"""
 mutable struct MecabNode
     surface::String
     feature::String
 end
 
 
-"""
-    Function to create a `MecabNode` from a `MecabRawNode`
-"""
+
 function create_node(raw::MecabRawNode)
     MecabNode(
         create_surface(raw),
@@ -94,9 +76,7 @@ function create_node(raw::MecabRawNode)
 end
 
 
-"""
-    Function to create a `String` from a `MecabRawNode`
-"""
+
 function create_surface(raw::MecabRawNode)
     local surface::String
     surface = try
@@ -107,9 +87,7 @@ function create_surface(raw::MecabRawNode)
 end
 
 
-"""
-    Function to create an `Array{MecabNode}` from a `Ptr{MecabRawNode}`
-"""
+
 function create_nodes(raw::Ptr{MecabRawNode})
     ret = Array{MecabNode}(undef, 0)
     while raw != C_NULL
@@ -123,9 +101,7 @@ function create_nodes(raw::Ptr{MecabRawNode})
 end
 
 
-"""
-    Function to create an `Array{String}` from a `Ptr{MecabRawNode}`
-"""
+
 function create_surfaces(raw::Ptr{MecabRawNode})
     ret = Array(String, 0)
     while raw != C_NULL
@@ -139,9 +115,7 @@ function create_surfaces(raw::Ptr{MecabRawNode})
 end
 
 
-"""
-    Parse a string using a `Mecab` tagger and return result as a string
-"""
+
 function sparse_tostr(mecab::Mecab, input::AbstractString)
     result = ccall(
         (:mecab_sparse_tostr, libmecab), Ptr{UInt8},
@@ -153,10 +127,6 @@ function sparse_tostr(mecab::Mecab, input::AbstractString)
     ret
 end
 
-
-"""
-    Parse a string using a `Mecab` tagger and return top n results as a string
-"""
 function nbest_sparse_tostr(mecab::Mecab, n::Int64, input::AbstractString)
     result = ccall(
         (:mecab_nbest_sparse_tostr, libmecab), Ptr{UInt8},
@@ -169,9 +139,7 @@ function nbest_sparse_tostr(mecab::Mecab, n::Int64, input::AbstractString)
 end
 
 
-"""
-    Parse a string using a `Mecab` tagger and return result as a `Ptr{MecabRawNode}`
-"""
+
 function mecab_sparse_tonode(mecab::Mecab, input::AbstractString)
     node = ccall(
         (:mecab_sparse_tonode, libmecab), Ptr{MecabRawNode},
@@ -182,18 +150,13 @@ function mecab_sparse_tonode(mecab::Mecab, input::AbstractString)
 end
 
 
-"""
-    Initialize the n-best enumeration process for a `Mecab` tagger
-"""
+
 function nbest_init(mecab::Mecab, input::AbstractString)
     ccall((:mecab_nbest_init, libmecab), Nothing, (Ptr{Nothing}, Ptr{UInt8}), mecab.ptr, string(input))
 end
 
 
 
-"""
-    Get the next n-best result from a `Mecab` tagger
-"""
 function nbest_next_tostr(mecab::Mecab)
     result = ccall((:mecab_nbest_next_tostr, libmecab), Ptr{UInt8}, (Ptr{Nothing},), mecab.ptr)
     local ret::String
@@ -202,9 +165,7 @@ function nbest_next_tostr(mecab::Mecab)
 end
 
 
-"""
-    Parse a string using a `Mecab` tagger and return result as an `Array{MecabNode}`
-"""
+
 function parse(mecab::Mecab, input::String)
     node = mecab_sparse_tonode(mecab, input)
     local ret::Array{MecabNode}
@@ -212,9 +173,6 @@ function parse(mecab::Mecab, input::String)
 end
 
 
-"""
-    Parse a string using a `Mecab` tagger and return surface strings as an `Array{String}`
-"""
 function parse_surface(mecab::Mecab, input::String)
     results = [split(line, "\t")[1] for line = split(sparse_tostr(mecab, input), "\n")]
     if isempty(results)
@@ -225,9 +183,7 @@ function parse_surface(mecab::Mecab, input::String)
 end
 
 
-"""
-    Parse a string using a `Mecab` tagger and return surface strings as an `Array{String}`
-"""
+
 function parse_surface2(mecab::Mecab, input::String)
     node = mecab_sparse_tonode(mecab, input)
     local ret::Array{String}
@@ -235,9 +191,7 @@ function parse_surface2(mecab::Mecab, input::String)
 end
 
 
-"""
-    Parse a string using a `Mecab` tagger and return the top n results as an `Array{Array{MecabNode}}`
-"""
+
 function parse_nbest(mecab::Mecab, n::Int64, input::String)
     results = split(nbest_sparse_tostr(mecab, n, input), "EOS\n")
 
@@ -245,17 +199,12 @@ function parse_nbest(mecab::Mecab, n::Int64, input::String)
 end
 
 
-"""
-    Create an array of `MecabNode` from an array of MeCab results
-"""
+
 function create_mecab_results(results::Array{String,1})
     filter(x -> x != nothing, map(mecab_result, results))
 end
 
 
-"""
-    Create a `MecabNode` from a MeCab result
-"""
 function mecab_result(input::String)
     if isempty(input) || input == "EOS"
         return
