@@ -51,26 +51,4 @@ mecab = Mecab()
 
 end
 
-
-
-function test_mecab()
-    mecab = Mecab()
-    # Test parsing
-    results = parse(mecab, "すももももももももものうち")
-    @test length(results) == 10
-    @test results[1].surface == "すもも"
-    @test results[1].feature == "名詞,一般,*,*,*,*,すもも,スモモ,スモモ"
-
-    # Test file parsing
-    write("test.txt", "すももももももももものうち")
-    results = mecab.parse_file("test.txt")
-    @test length(results) == 10
-    @test results[1].surface == "すもも"
-    @test results[1].feature == "名詞,一般,*,*,*,*,すもも,スモモ,スモモ"
-
-    # Clean up
-    rm("test.txt")
-end
-
-
 end
