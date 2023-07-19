@@ -89,3 +89,11 @@ Original [MeCab](https://taku910.github.io/mecab/) is created by Taku Kudo
 - [r9y9](https://github.com/r9y9)
 - [snthot](https://github.com/snthot)
 - [tkelman](https://github.com/tkelman)
+
+
+```@index
+```
+
+```@autodocs
+Modules = [Wakame]
+```
