@@ -1,17 +1,6 @@
-```@meta
-CurrentModule = Wakame
-```
-
 # Wakame
 
 Documentation for [Wakame](https://github.com/PyDataBlog/Wakame.jl).
-
-```@index
-```
-
-```@autodocs
-Modules = [Wakame]
-```
 
 
 ## Installation
@@ -71,12 +60,6 @@ for nbest_result in nbest_results
   end
   println()
 end
-
-
-# Read from file as well
-write("test.txt", "すももももももももものうち")
-results = mecab.parse_file("test.txt")
-
 ```
 
 ## Credits
