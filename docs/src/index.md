@@ -3,6 +3,18 @@
 Documentation for [Wakame](https://github.com/PyDataBlog/Wakame.jl).
 
 
+## Features
+
+Wakame is a powerful and versatile library that can be used to segment a wide variety of Japanese text corpora. It is also highly efficient, making it ideal for large-scale text processing tasks.
+
+Here are some of the key features of Wakame:
+
+- Port of MeCab: Wakame is a port of the popular Japanese text segmentation library, MeCab. This gives Wakame access to MeCab's vast vocabulary and morphological analysis capabilities.
+- Interface with C++: Wakame is written in Julia, but it interfaces directly with C++ code. This allows Wakame to take advantage of the speed and efficiency of C++ while still providing the flexibility and expressiveness of Julia.
+- Support for a variety of corpora: Wakame supports a variety of Japanese text corpora, including news articles, social media posts, and academic papers.
+- High performance: Wakame is highly efficient, making it ideal for large-scale text processing tasks.
+
+
 ## Installation
 
 To install `Wakame` either do
